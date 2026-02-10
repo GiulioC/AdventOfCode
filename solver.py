@@ -1,3 +1,4 @@
+from time import time
 import argparse
 import sys
 
@@ -6,6 +7,8 @@ if __name__ == '__main__':
     argparser.add_argument('--year', required=True)
     argparser.add_argument('--day', required=True)
     argparser.add_argument('--part', required=True)
+    argparser.add_argument('--test', required=False, action="store_true")
+    argparser.add_argument('--time', required=False, action="store_true")
     args = argparser.parse_args()
 
     # import part1 and part2 solutions
@@ -13,7 +16,11 @@ if __name__ == '__main__':
     from solution import Solution
 
     try:
-        with open(f"{args.year}/{args.day}/input", "r") as f:
+        if args.test:
+            filename = "input_test"
+        else:
+            filename = "input"
+        with open(f"{args.year}/{args.day}/{filename}", "r") as f:
             puzzle_input = f.read()
     except FileNotFoundError:
         print("Unable to find puzzle input for the selected day!")
@@ -21,10 +28,15 @@ if __name__ == '__main__':
 
     s = Solution(puzzle_input)
     try:
+        if args.time:
+            start = time()
         if args.part == '1':
             result = s.part1()
         else:
             result = s.part2()
+        if args.time:
+            end = time()
+            print(f"Executed in {end-start} seconds")
     except NotImplementedError:
         print("This solution has not been implemented yet!")
         sys.exit(1)

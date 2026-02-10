@@ -29,10 +29,10 @@ class Solution:
     
     # solution:
     def part1(self):
-        raise(NotImplementedError)
+        raise NotImplementedError
 
     # solution:
     def part2(self):
-        raise(NotImplementedError)
+        raise NotImplementedError
                 """)
     
